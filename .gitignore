@@ -1,0 +1,144 @@
+# Repository policy: keep the Git index to the small, first-party source allowlist
+# below. Everything else (including local game data and generated build output)
+# remains ignored by default.
+*
+
+# Repository metadata/configuration
+!.gitignore
+!.coderabbit.yaml
+
+# First-party contracts and readme
+!LogicMods/
+!LogicMods/YEET/
+!LogicMods/YEET/BUILD-CONTRACT.json
+!LogicMods/YEET/INTERACTION-CONTRACT.json
+!LogicMods/YEET/README.md
+!LogicMods/YEET/ROUTE-UI-CONTRACT.json
+
+!PalSchema/
+!PalSchema/README.md
+!PalSchema/mods/
+!PalSchema/mods/YEETTerminal/
+!PalSchema/mods/YEETTerminal/buildings/
+!PalSchema/mods/YEETTerminal/buildings/yeet_terminal.jsonc
+
+# First-party test specifications
+!tests/
+!tests/domain_spec.lua
+!tests/inventory_adapter_spec.lua
+!tests/inventory_runtime_spec.py
+!tests/main_inventory_integration_spec.py
+!tests/main_pal_reservation_integration_spec.py
+!tests/main_terminal_integration_spec.py
+!tests/main_ui_integration_spec.py
+!tests/pal_reservation_runtime_spec.py
+!tests/run-lua-specs.py
+!tests/run-yeet-specs.ps1
+!tests/state_store_spec.lua
+!tests/terminal_interaction_bridge_spec.py
+
+# First-party maintenance and validation scripts (the bundled dotnet runtime
+# and its installer are intentionally excluded).
+!tools/
+!tools/deploy-yeet-local-workshop.ps1
+!tools/deploy-yeet-palschema.ps1
+!tools/deploy-yeet-runtime-probe.ps1
+!tools/package-yeet-workshop.ps1
+!tools/probe-terminal-cooked-asset.ps1
+!tools/rewrite-terminal-cooked-asset.ps1
+!tools/switch-to-managed-yeet.ps1
+!tools/validate-yeet-core.ps1
+!tools/validate-yeet-ui-slice.ps1
+!tools/validate-yeet-workshop.ps1
+!tools/verify-yeet-runtime.ps1
+
+# First-party UE4SS mods
+!UE4SS/
+!UE4SS/Mods/
+!UE4SS/Mods/YEETAnatomyProbe/
+!UE4SS/Mods/YEETAnatomyProbe/README.md
+!UE4SS/Mods/YEETAnatomyProbe/Scripts/
+!UE4SS/Mods/YEETAnatomyProbe/Scripts/main.lua
+!UE4SS/Mods/YEETAnatomyProbe/Scripts/smoke-static.ps1
+!UE4SS/Mods/YEETArrivalActivationProbe/
+!UE4SS/Mods/YEETArrivalActivationProbe/README.md
+!UE4SS/Mods/YEETArrivalActivationProbe/Scripts/
+!UE4SS/Mods/YEETArrivalActivationProbe/Scripts/arrival_probe.lua
+!UE4SS/Mods/YEETArrivalActivationProbe/Scripts/main.lua
+!UE4SS/Mods/YEETArrivalActivationProbe/Scripts/smoke-static.ps1
+!UE4SS/Mods/YEETCaravanCore/
+!UE4SS/Mods/YEETCaravanCore/README.md
+!UE4SS/Mods/YEETCaravanCore/Info.json
+!UE4SS/Mods/YEETCaravanCore/Scripts/
+!UE4SS/Mods/YEETCaravanCore/Scripts/config.lua
+!UE4SS/Mods/YEETCaravanCore/Scripts/domain.lua
+!UE4SS/Mods/YEETCaravanCore/Scripts/inventory_adapter.lua
+!UE4SS/Mods/YEETCaravanCore/Scripts/inventory_policy.lua
+!UE4SS/Mods/YEETCaravanCore/Scripts/inventory_runtime.lua
+!UE4SS/Mods/YEETCaravanCore/Scripts/json.lua
+!UE4SS/Mods/YEETCaravanCore/Scripts/main.lua
+!UE4SS/Mods/YEETCaravanCore/Scripts/pal_reservation_runtime.lua
+!UE4SS/Mods/YEETCaravanCore/Scripts/state_store.lua
+!UE4SS/Mods/YEETCaravanCore/Scripts/terminal_interaction_bridge.lua
+!UE4SS/Mods/YEETRuntimeProbe/
+!UE4SS/Mods/YEETRuntimeProbe/README.md
+!UE4SS/Mods/YEETRuntimeProbe/Info.json
+!UE4SS/Mods/YEETRuntimeProbe/Scripts/
+!UE4SS/Mods/YEETRuntimeProbe/Scripts/main.lua
+!UE4SS/Mods/YEETRuntimeProbe/Scripts/runtime_probe.lua
+!UE4SS/Mods/YEETRuntimeProbe/Scripts/smoke-static.ps1
+
+# LogicModBuild source/configuration only; all Unreal generated output and
+# cooked assets remain ignored.
+!LogicModBuild/
+!LogicModBuild/Config/
+!LogicModBuild/Config/DefaultEngine.ini
+!LogicModBuild/Config/DefaultInput.ini
+!LogicModBuild/Scripts/
+!LogicModBuild/Scripts/build_yeet_assets.py
+!LogicModBuild/Scripts/probe_unreal_python.py
+!LogicModBuild/Scripts/probe_widget_asset.py
+!LogicModBuild/YEETAssets.uproject
+!LogicModBuild/Plugins/
+!LogicModBuild/Plugins/YEETAssetBuilder/
+!LogicModBuild/Plugins/YEETAssetBuilder/YEETAssetBuilder.uplugin
+!LogicModBuild/Plugins/YEETAssetBuilder/Source/
+!LogicModBuild/Plugins/YEETAssetBuilder/Source/YEETAssetBuilder/
+!LogicModBuild/Plugins/YEETAssetBuilder/Source/YEETAssetBuilder/Private/
+!LogicModBuild/Plugins/YEETAssetBuilder/Source/YEETAssetBuilder/Private/YEETAssetBuilderLibrary.cpp
+!LogicModBuild/Plugins/YEETAssetBuilder/Source/YEETAssetBuilder/Private/YEETAssetBuilderModule.cpp
+!LogicModBuild/Plugins/YEETAssetBuilder/Source/YEETAssetBuilder/Public/
+!LogicModBuild/Plugins/YEETAssetBuilder/Source/YEETAssetBuilder/Public/YEETAssetBuilderLibrary.h
+!LogicModBuild/Plugins/YEETAssetBuilder/Source/YEETAssetBuilder/YEETAssetBuilder.Build.cs
+
+# Explicit safety fences for common local/generated material. These are kept
+# here as documentation too, even though the deny-by-default rule above also
+# covers them.
+vendor/
+dist/
+downloads/
+epic_appdata/
+epic_local/
+epic_temp/
+Intermediate/
+Binaries/
+Saved/
+output/
+MissionCenter/
+runtime-backups/
+Workshop/
+**/*.pak
+**/*.uasset
+**/*.uexp
+**/*.ubulk
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.gif
+**/*.webp
+**/*.bmp
+**/*.msi
+**/*.zip
+**/*.7z
+**/*.rar
+
