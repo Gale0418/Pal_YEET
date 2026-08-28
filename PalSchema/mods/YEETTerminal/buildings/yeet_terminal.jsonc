@@ -1,0 +1,58 @@
+// YEET Terminal prototype data row.
+//
+// This intentionally reuses the vanilla WorkBench Blueprint so the first
+// validation can prove the build-wheel/data-row contract without inventing a
+// .pak or shipping Pocketpair assets. Replace BlueprintClassSoft only after
+// BP_YEETTerminal has been cooked into the YEET LogicMod pak.
+{
+  "YEET_Terminal": {
+    "Name": "YEET Terminal",
+    "Description": "基地間快速運輸終端（原型）",
+    "BlueprintClassName": "BP_BuildObject_WorkBench",
+    "BlueprintClassSoft": "/Game/Pal/Blueprint/MapObject/BuildObject/BP_BuildObject_WorkBench.BP_BuildObject_WorkBench_C",
+    "IconTexture": "/Game/Pal/Texture/BuildObject/PNG/T_icon_buildObject_WorkBench.T_icon_buildObject_WorkBench",
+    "Hp": 2000,
+    "Defense": 2,
+    "MaterialType": "Wood",
+    "MaterialSubType": "Wood",
+    "bBelongToBaseCamp": true,
+    "DeteriorationDamage": 0.2,
+    "BuildingData": {
+      "TypeA": "Product",
+      "TypeB": "Prod_Craft",
+      "Rank": 5,
+      "RequiredBuildWorkAmount": 1.0,
+      "Material1_Id": "Wood",
+      "Material1_Count": 20,
+      "Material2_Id": "Stone",
+      "Material2_Count": 10,
+      "bIsInstallOnlyOnBase": false,
+      "InstallMaxNumInBaseCamp": 2,
+      "bInstallableNoObstacleFromCamera": true,
+      "BuildExpRate": 1.0
+    },
+    "Assignments": [
+      {
+        "WorkSuitability": "Handcraft",
+        "WorkSuitabilityRank": 1,
+        "bPlayerWorkable": true,
+        "bBaseCampWorkerWorkable": true,
+        "WorkType": "CommonTemp",
+        "WorkActionType": "CommonWork",
+        "WorkerMaxNum": 0,
+        "AffectSanityValue": -0.15,
+        "AffectFullStomachValue": 1.0
+      }
+    ],
+    "Technology": {
+      "UnlockBuildObjects": ["YEET_Terminal"],
+      "IconName": "WorkBench",
+      "IsBossTechnology": false,
+      "Name": "YEET Terminal",
+      "Description": "解鎖基地間快速運輸終端。",
+      "LevelCap": 1,
+      "Tier": 1,
+      "Cost": 0
+    }
+  }
+}

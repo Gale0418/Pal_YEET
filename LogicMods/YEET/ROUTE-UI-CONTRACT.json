@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "phase": "E1-ui-prototype",
+  "widget_asset": "/Game/Mods/YEET/UI/WBP_YEETRouteMenu.WBP_YEETRouteMenu_C",
+  "audio": {
+    "custom_wwise": false,
+    "policy": "silent_ui_or_reuse_existing_game_audio_only"
+  },
+  "authority": {
+    "open_ui": "local_player",
+    "route_state": "host_authoritative_domain_model",
+    "build_terminal": "host_or_single_player",
+    "inventory_and_pal_movement": "adapter_gated"
+  },
+  "ui_bridge": {
+    "ui_bridge_ready": true,
+    "widget_asset_ready": true,
+    "arrival_activation_bridge_ready": false,
+    "request_events": ["open", "close", "state"],
+    "request_payload": [
+      "event",
+      "source",
+      "revision",
+      "open",
+      "ui_bridge_ready",
+      "widget_asset_ready",
+      "arrival_activation_bridge_ready"
+    ],
+    "idempotence": "monotonic_revision",
+    "input_lifecycle": {
+      "open": "UIOnly_only_after_widget_asset_ready",
+      "close": "GameOnly_after_widget_close",
+      "focus_restore": "required",
+      "debug_key": "request_only_until_widget_asset_ready"
+    }
+  },
+  "widget_specification": {
+    "name": "WBP_YEETRouteMenu",
+    "path": "/Game/Mods/YEET/UI/WBP_YEETRouteMenu",
+    "components": {
+      "origin_base_camp": {
+        "type": "ComboBoxString_or_TextBlock",
+        "label": "來源基地",
+        "status": "enabled",
+        "description": "顯示當前所在基地或可選擇出發基地"
+      },
+      "destination_base_camp": {
+        "type": "ComboBoxString_or_EditableTextBox",
+        "label": "目的基地",
+        "status": "enabled",
+        "description": "選擇目標基地識別碼"
+      },
+      "trade_container_binding": {
+        "type": "ObjectBindingRow",
+        "label": "可互動商隊箱",
+        "status": "enabled_when_exact_container_resolved",
+        "description": "目的箱缺口驅動補貨；來源為起點基地內合格普通儲存容器總和"
+      },
+      "pal_assignment_slot": {
+        "type": "Border_or_Button",
+        "label": "指派 Pal 區",
+        "status": "enabled_when_host_reservation_adapter_ready",
+        "reason": "adapter 未驗證時必須顯示安全鎖定提示，不得建立影分身編制"
+      },
+      "eta_and_status": {
+        "type": "TextBlock_and_ProgressBar",
+        "label": "ETA／路線狀態",
+        "status": "enabled",
+        "description": "顯示路線預計抵達秒數、倒數與當前狀態 (scheduled/traveling/arrival_pending_activation/arrived)"
+      },
+      "create_route_button": {
+        "type": "Button",
+        "label": "建立路線",
+        "status": "enabled",
+        "target_api": "YEET.CaravanCore.CreateNetworkRoute"
+      },
+      "close_button": {
+        "type": "Button",
+        "label": "關閉",
+        "status": "enabled",
+        "target_api": "YEET.CaravanCore.CloseRouteMenu"
+      }
+    }
+  },
+  "mvp_execution_route": {
+    "development_only_fallback": "debug_key_only_when_development_mode_true",
+    "pak_route": "blueprint_only_umg_logic_mod_without_cpp"
+  },
+  "inputs": {
+    "open": "terminal_interact; debug_key only in development mode",
+    "close": "escape_or_close_button",
+    "create_route": "terminal_a,terminal_b,repeat_route",
+    "bind_trade_container": "terminal_id,trade_container_guid",
+    "bind_escrow_container": "terminal_id,escrow_container_guid (hidden, non-interactive)",
+    "set_cargo_rule": "route_id,direction,item_id,source_keep,destination_target,per_trip_cap,destination_kind(trade_box|feed_box),destination_container_guid(optional for trade_box; required for feed_box)",
+    "confirm_load": "caravan_id,observed_escrow_counts after native exact-slot moves",
+    "delete_route": "route_id"
+  },
+  "outputs": {
+    "route_created": "YEET.CaravanCore.CreateNetworkRoute",
+    "route_deleted": "YEET.CaravanCore.DeleteRoute",
+    "route_status": "YEET.CaravanCore.DumpStatus"
+  },
+  "runtime_exploration": [
+    "EXPLORE-01: verify local PlayerController and viewport access",
+    "EXPLORE-02: verify native UI stack and input focus restoration",
+    "EXPLORE-03: verify build data row and blueprint item contract",
+    "EXPLORE-04: verify native interaction component/event signature",
+    "EXPLORE-05: verify persistent terminal identity",
+    "EXPLORE-06: verify dedicated-server Lua fallback without UI",
+    "EXPLORE-07: resolve destination base camp and trigger native-equivalent activation"
+  ],
+  "acceptance": [
+    "single-player opens the widget from a debug entry point or terminal interact",
+    "close restores gameplay input",
+    "20 open-close cycles complete without crash or duplicate widgets",
+    "arrival activates the destination base camp without teleporting or faking a player",
+    "no custom .bnk or .pck is packaged",
+    "ui bridge does not claim widget readiness before a cooked LogicMod asset exists",
+    "arrival activation remains blocked until a verified native-equivalent bridge exists"
+  ]
+}

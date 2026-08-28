@@ -1,0 +1,12 @@
+{
+  "FileVersion": 3,
+  "EngineAssociation": "5.1",
+  "Category": "Mods",
+  "Description": "Content-only build workspace for the YEET Palworld LogicMod.",
+  "Plugins": [
+    { "Name": "PythonScriptPlugin", "Enabled": true },
+    { "Name": "EditorScriptingUtilities", "Enabled": true },
+    { "Name": "YEETAssetBuilder", "Enabled": true }
+  ],
+  "TargetPlatforms": ["Windows"]
+}

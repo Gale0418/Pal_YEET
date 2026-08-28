@@ -1,0 +1,7 @@
+{
+  "name": "YEETRuntimeProbe",
+  "version": "0.1.0-staging",
+  "description": "Development-only bounded host read-only runtime evidence probe",
+  "author": "YEET",
+  "main": "Scripts/main.lua"
+}

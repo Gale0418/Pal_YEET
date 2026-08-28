@@ -1,0 +1,80 @@
+{
+  "package_name": "YEET",
+  "logic_mod_asset": "/Game/Mods/YEET/ModActor.ModActor_C",
+  "terminal_asset": "/Game/Mods/YEET/Buildings/BP_YEETTerminal.BP_YEETTerminal_C",
+  "interaction_contract": "LogicMods/YEET/INTERACTION-CONTRACT.json",
+  "dependency_policy": {
+    "cpp_compilation": "required_for_editor_asset_build_only",
+    "custom_cpp_parent_at_runtime": false,
+    "runtime_cpp_dependency": false,
+    "wwise_required": false,
+    "editor_requirement": "ue51_editor_with_editor_only_yeet_asset_builder; runtime_blueprint_only_or_ue4ss_lua_injection"
+  },
+  "runtime_readiness": {
+    "ui_bridge": "cooked_widget_runtime_candidate",
+    "widget_asset_ready": true,
+    "arrival_activation_bridge_ready": false,
+    "terminal_blueprint": "blueprint_asset_pending",
+    "build_registration": "pending_runtime_or_merge_safe_registration_asset",
+    "terminal_interaction": "native F -> Blueprint YEET_RequestRouteMenu -> UE4SS exact-class hook -> terminal_interact",
+    "unsupported_native_calls": ["OnPlayerEnterBaseCampArea", "SetEnableTick"]
+  },
+  "build_data_row": {
+    "row_name": "YEET_Terminal",
+    "map_object_id": "YEET_Terminal",
+    "type_a": "Infrastructure",
+    "type_b": "Infra_Environment",
+    "type_ui_display": "Freestanding",
+    "rank": 1,
+    "blueprint_item_id": "Item_YEET_Terminal",
+    "is_install_only_on_base": false,
+    "install_max_num_in_base_camp": 2,
+    "required_materials": [
+      {
+        "id": "Wood",
+        "count": 20
+      },
+      {
+        "id": "Stone",
+        "count": 10
+      }
+    ],
+    "default_unlock": true
+  },
+  "placeholder_mesh": {
+    "policy": "reuse_existing_buildable_mesh_until_custom_asset_exists",
+    "candidate": "existing_small_storage_or_signboard",
+    "must_be_replaceable": true
+  },
+  "authority": "host",
+  "economy": "logistics_alpha",
+  "trade_container": {
+    "kind": "ordinary_interactive_storage",
+    "binding": "one trade_container_guid per terminal",
+    "demand_semantics": "destination target minus current contents",
+    "source_semantics": "aggregate eligible ordinary storage across source base",
+    "excluded_sources": ["trade container at destination", "Palbox", "Feed Box", "machine internal container", "unresolved base or guild container"],
+    "delivery_targets": {
+      "trade_box": "default ordinary interactive YEET trade container",
+      "feed_box": "exact existing vanilla Feed Box GUID; respects native category filters and capacity"
+    }
+  },
+  "escrow_container": {
+    "visibility": "hidden_from_player_inventory_ui",
+    "interaction": "none",
+    "purpose": "physical crash-safe cargo custody between confirmed source removal and confirmed destination deposit"
+  },
+  "vanilla_expedition_hooks": false,
+  "arrival_activation": {
+    "required": true,
+    "mode": "native_base_camp_equivalent",
+    "authority": "server_or_single_player_host",
+    "trigger": "destination_arrival_once",
+    "must_observe": [
+      "destination_base_camp_model_resolved",
+      "base_camp_is_available_or_woken",
+      "base_camp_worker_director_reactivated"
+    ],
+    "forbidden_shortcut": "teleport_or_fake_player_to_destination"
+  }
+}

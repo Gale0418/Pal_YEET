@@ -1,0 +1,17 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "0.1.0",
+  "FriendlyName": "YEET Asset Builder",
+  "Description": "Editor-only deterministic asset generator for the YEET LogicMod.",
+  "Category": "Editor",
+  "EnabledByDefault": true,
+  "CanContainContent": false,
+  "Modules": [
+    {
+      "Name": "YEETAssetBuilder",
+      "Type": "Editor",
+      "LoadingPhase": "Default"
+    }
+  ]
+}

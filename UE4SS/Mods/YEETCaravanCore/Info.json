@@ -1,0 +1,8 @@
+{
+  "ModName":"YEET Caravan Core",
+  "PackageName":"YEETCaravanCore",
+  "Version":"0.5.0-alpha",
+  "Author":"YEET",
+  "Dependencies":["UE4SSExperimentalPW"],
+  "InstallRule":[{"Type":"UE4SS","Targets":["Mods/YEETCaravanCore"]}]
+}

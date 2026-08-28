@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "terminal_class": "/Game/Mods/YEET/Buildings/BP_YEETTerminal.BP_YEETTerminal_C",
+  "pal_parent_class": "existing Pal native build-object Blueprint class; no YEET C++ runtime class",
+  "interaction_component": "UPalInteractiveObjectBoxComponent",
+  "interaction_action": "Interact1",
+  "prompt_text": "使用 YEET 商隊終端",
+  "blueprint_wiring": {
+    "source_event": "OnInteractBegin",
+    "interactor_pin": "Other",
+    "target_call": "BP_YEETTerminal.YEET_RequestRouteMenu(Other)",
+    "bridge_priority": [
+      "hook BP_YEETTerminal_C:YEET_RequestRouteMenu",
+      "fallback: hook native OnInteractBegin and accept only exact BP_YEETTerminal_C instances"
+    ],
+    "lua_event": "terminal_interact",
+    "ui": "WBP_YEETRouteMenu"
+  },
+  "input_policy": {
+    "player_key": "F",
+    "uses_pal_native_interaction": true,
+    "global_debug_key": "F8",
+    "global_debug_key_is_product_entry": false
+  },
+  "forbidden_paths": [
+    "WBP_PalExpedition",
+    "PalHUDDispatchParameter_MapObjectCharacterTeamMission",
+    "WorkBench_placeholder"
+  ],
+  "runtime_cpp_dependency": false,
+  "status": "blueprint_asset_pending"
+}
